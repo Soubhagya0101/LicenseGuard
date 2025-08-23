@@ -578,6 +578,12 @@
                       method="POST"
                       target="hidden_iframe"
                       onsubmit="showWaitlistThankYou();">
+                    
+                    <!-- Hidden fields required by Google Forms -->
+                    <input type="hidden" name="fvv" value="1">
+                    <input type="hidden" name="fbzx" value="2290200282263908813">
+                    <input type="hidden" name="pageHistory" value="0">
+                    
                     <div class="form-group">
                         <input type="email" class="form-control" name="entry.1517157152" placeholder="Enter your email address" required>
                     </div>
@@ -666,7 +672,7 @@
         const waitlistButtons = [
             'joinWaitlistBtn', 'joinWaitlistHeaderBtn', 'finalCtaBtn', 
             'joinWaitlistProductBtn', 'exitJoinWaitlistBtn', 'convertFromDemoBtn',
-            'getMyReportBtn', 'upgradePlanBtn'
+            'getMyReportBtn', 'upgradePlanBtn', 'tryDemoBtn'
         ];
         
         waitlistButtons.forEach(function(buttonId) {
