@@ -565,50 +565,42 @@
         </div>
     </div>
 
+    <!-- Waitlist Modal - FIXED VERSION WITH GOOGLE FORMS -->
     <div class="modal hidden" id="waitlistModal">
-    <div class="modal__overlay">
-        <div class="modal__content">
-            <button class="modal__close" id="closeWaitlistBtn">×</button>
-            <h3>🚀 Join the Waitlist</h3>
-            <p>Get early access and save 40% when we launch in 45 days</p>
-            <form class="waitlist-form"
-                  id="waitlistForm"
-                  action="https://docs.google.com/forms/d/e/1FAIpQLSftNm542h7joliN0H61E15EgHvAuwGcMW40dB4p_nqPrqoSsQ/formResponse"
-                  method="POST"
-                  target="hidden_iframe"
-                  onsubmit="showWaitlistThankYou();">
-                <div class="form-group">
-                    <input type="email" class="form-control" name="entry.1517157152" placeholder="Enter your email address" required>
+        <div class="modal__overlay">
+            <div class="modal__content">
+                <button class="modal__close" id="closeWaitlistBtn">×</button>
+                <h3>🚀 Join the Waitlist</h3>
+                <p>Get early access and save 40% when we launch in 45 days</p>
+                <form class="waitlist-form"
+                      id="waitlistForm"
+                      action="https://docs.google.com/forms/d/e/1FAIpQLSftNm542h7joliN0H61E15EgHvAuwGcMW40dB4p_nqPrqoSsQ/formResponse"
+                      method="POST"
+                      target="hidden_iframe"
+                      onsubmit="showWaitlistThankYou();">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="entry.1517157152" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="First name (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            Send me tips on saving money on subscriptions
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Join Waitlist</button>
+                </form>
+                <iframe name="hidden_iframe" style="display:none;"></iframe>
+                <div class="waitlist-success hidden" id="waitlistSuccess">
+                    <h3>🎉 You're on the list!</h3>
+                    <p>We'll email you when we launch with your 40% discount code</p>
+                    <button class="btn btn--primary" id="shareWaitlist">Share with Friends</button>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="First name (optional)">
-                </div>
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" checked>
-                        Send me tips on saving money on subscriptions
-                    </label>
-                </div>
-                <button type="submit" class="btn btn--primary btn--full-width">Join Waitlist</button>
-            </form>
-            <iframe name="hidden_iframe" style="display:none;"></iframe>
-            <div class="waitlist-success hidden" id="waitlistSuccess">
-                <h3>🎉 You're on the list!</h3>
-                <p>We'll email you when we launch with your 40% discount code</p>
-                <button class="btn btn--primary" id="shareWaitlist">Share with Friends</button>
             </div>
         </div>
     </div>
-</div>
-<script>
-function showWaitlistThankYou() {
-    setTimeout(function() {
-        document.getElementById('waitlistForm').style.display = 'none';
-        document.getElementById('waitlistSuccess').classList.remove('hidden');
-    }, 300);
-}
-</script>
-
 
     <!-- Exit Intent Modal -->
     <div class="modal hidden" id="exitIntentModal">
@@ -658,6 +650,55 @@ function showWaitlistThankYou() {
             </div>
         </div>
     </footer>
+
+    <!-- Fixed JavaScript for Waitlist Integration -->
+    <script>
+    // Handle Google Forms submission and thank you display
+    function showWaitlistThankYou() {
+        setTimeout(function() {
+            document.getElementById('waitlistForm').style.display = 'none';
+            document.getElementById('waitlistSuccess').classList.remove('hidden');
+        }, 300);
+    }
+
+    // Make all "Join Waitlist" buttons open the modal
+    document.addEventListener('DOMContentLoaded', function() {
+        const waitlistButtons = [
+            'joinWaitlistBtn', 'joinWaitlistHeaderBtn', 'finalCtaBtn', 
+            'joinWaitlistProductBtn', 'exitJoinWaitlistBtn', 'convertFromDemoBtn',
+            'getMyReportBtn', 'upgradePlanBtn'
+        ];
+        
+        waitlistButtons.forEach(function(buttonId) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                button.onclick = function() {
+                    document.getElementById('waitlistModal').classList.remove('hidden');
+                    document.getElementById('waitlistForm').style.display = 'block';
+                    document.getElementById('waitlistSuccess').classList.add('hidden');
+                };
+            }
+        });
+
+        // Close waitlist modal
+        const closeBtn = document.getElementById('closeWaitlistBtn');
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                document.getElementById('waitlistModal').classList.add('hidden');
+            };
+        }
+
+        // Close modal when clicking overlay
+        const modalOverlay = document.querySelector('#waitlistModal .modal__overlay');
+        if (modalOverlay) {
+            modalOverlay.onclick = function(e) {
+                if (e.target === modalOverlay) {
+                    document.getElementById('waitlistModal').classList.add('hidden');
+                }
+            };
+        }
+    });
+    </script>
 
     <script src="app.js"></script>
 </body>
