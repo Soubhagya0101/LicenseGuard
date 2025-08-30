@@ -63,6 +63,15 @@ document.addEventListener('DOMContentLoaded', function() {
     updateWaitlistPositions();
     initializeProductFeatures();
     initializeFirebaseForm();
+    
+    // Add separate handler for Try Product Demo button
+    const tryDemoBtn = document.getElementById('tryDemoBtn');
+    if (tryDemoBtn) {
+        tryDemoBtn.addEventListener('click', function() {
+            showProductDemo();
+        });
+    }
+    
     console.log('Ultimate LicenseGuard Demo Loaded Successfully! 🛡️');
 });
 
@@ -133,7 +142,7 @@ function initializeFirebaseForm() {
     const waitlistButtons = [
         "joinWaitlistBtn", "joinWaitlistHeaderBtn", "finalCtaBtn",
         "joinWaitlistProductBtn", "exitJoinWaitlistBtn", "convertFromDemoBtn",
-        "getMyReportBtn", "upgradePlanBtn", "tryDemoBtn"
+        "getMyReportBtn", "upgradePlanBtn"  // removed tryDemoBtn from here
     ];
     
     waitlistButtons.forEach(function (id) {
@@ -724,4 +733,14 @@ function initializeExitIntent() {
 
 function showExitIntentModal() {
     document.getElementById('exitIntentModal').classList.remove('hidden');
+}
+
+// Update showProductDemo to handle both views and header
+function showProductDemo() {
+    document.getElementById('marketingHeader').classList.add('hidden');
+    document.getElementById('productHeader').classList.remove('hidden');
+    document.getElementById('marketingView').classList.add('hidden');
+    document.getElementById('productView').classList.remove('hidden');
+    currentView = 'product';
+    console.log('Switched to product demo view');
 }
